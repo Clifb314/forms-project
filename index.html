@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Give your data to me!</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="right-side">
+        <div class="top">
+            <p class="header">This is not a real online service! You know you need something
+                like this in your life to help you realize your deepest dreams.
+                Sign up <em>now</em> to get started.
+            </p>
+            <p class="header">You <em>know</em> you want to.</p>
+        </div>
+        <div class="formsection">
+            <form method="post" id="signup">
+                <h1 class="header">Let's do this!</h1>
+                <label for="fname">FIRST NAME</label>
+                <input type="text"
+                        placeholder="Thor"
+                        required
+                        name="fname">
+                <label for="lname">LAST NAME</label>
+                <input type="text"
+                        placeholder="Odinson"
+                        required
+                        name="lname">
+                <label for="email">EMAIL</label>
+                <input type="email"
+                        placeholder="email@domain.com"
+                        required
+                        name="email">
+                <label for="pnum">PHONE NUMBER</label>
+                <input type="tel"
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
+                        placeholder="xxx-xxx-xxxx"
+                        name="pnum"
+                        id="pnum">
+                <label for="password">PASSWORD</label>
+                <input type="password"
+                        title="Must be at least 10 characters with at least one number and one capital letter"
+                        required
+                        name="password"
+                        id="password">
+                <span id="perror"></span>
+                <label for="checkpass">CONFIRM PASSWORD</label>
+                <input type="password"
+                        required
+                        name="checkpass"
+                        id="checkpass">
+                <span id="checkerror"></span>
+            </form>
+        </div>
+        <div class="bottom">
+            <button type="submit" form="signup" value="submit">Create Account</button>
+            <p>
+                Already have an account? <a href="./">Log in</a>
+            </p>
+        </div>
+    </div>
+
+
+
+<script type="text/javascript">
+    let check = document.getElementbyId('checkpass')
+    let password = document.getElementById('password')
+    let phone = document.getElementById('pnum')
+    let passerror = document.getElementById('perror')
+    let checkerror = document.getElementById('checkerror')
+    let btn = document.querySelector("button")
+
+    phone.addEventListener('keyup', () => {
+        addHyphen()
+    })
+
+    password.addEventListener('focusout', () => {
+        checkReq()
+    })
+
+    check.addEventListener("focusout", () => {
+        checkEqual()
+    })
+
+    function checkEqual() {
+        let first = password.value
+        let second = check.value
+
+        if (first !== second) {
+            checkerror.textContent = '* Passwords do not match'
+            checkerror.className = 'invalid'
+            btn.disabled = true
+
+        }
+
+        else {
+            checkerror.classname = ''
+            btn.disabled = false
+        }
+
+    }
+
+    function checkReq() {
+        let test = password.value
+        if (test.length < 10) {
+            pLen = test.length
+            passerror.className = 'invalid'
+            passerror.textContent = 'Please enter a password with at least 10 character. You have ${pLen}'
+            btn.disabled = true
+        }
+
+        // string.search can take regex, returns -1 if not found
+        if (test.search(/[0-9]/) < 0) {
+            passerror.textContent = 'Please include at least one number'
+            passerror.className = 'invalid'
+            btn.disabled = true
+
+        }
+
+        if (test.search(/[A-Z]/) < 0) {
+            passerror.textContent = 'Please include at least one capital letter'
+            passerror.className = 'invalid'
+            btn.disabled = true
+        }
+        else {
+            passerror.className = ''
+            btn.disabled = false
+        }
+    }
+
+    function addHyphen() {
+        let number = phone.value
+
+        if (number.length == 3 || number.length == 7) {
+            phone.value += '-'
+        }
+    }
+
+</script>
+
+
+
+</body>
+
+
+
+
+
+</html>

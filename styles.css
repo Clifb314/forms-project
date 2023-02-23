@@ -1,0 +1,64 @@
+body {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    min-height: 100vh;
+    font-family: Verdana, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    font-size: 12px
+}
+
+button, input {
+    font-family: inherit;
+    font-size: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    font-weight: 700;
+    font-size: 1.5rem
+}
+
+.right-side {
+    width: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.top, .formsection, .bottom {
+    flex: 1;
+    padding: 10px;
+    background: hsl(217, 8%, 64%)
+}
+
+.formsection {
+    background: hsl(217, 18%, 79%)
+}
+
+input:invalid {
+    border: red;
+}
+
+.invalid {
+    color: red;
+    font-size: 0.5rem;
+}
+
+input:focus {
+    background: hsl(217, 5%, 92%)
+}
+
+button {
+    background: hsl(101, 92%, 30%);
+    color: white;
+    padding: 4px 8px;
+}
+
+a {
+    font-weight: 500;
+    color: hsl(101, 92%, 30%)
+}
