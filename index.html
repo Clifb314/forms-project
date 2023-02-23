@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <div class="bg">
+        <div class="gradient">Logo goes here</div>
+    </div>
     <div class="right-side">
         <div class="top">
             <p class="header">This is not a real online service! You know you need something
@@ -20,40 +23,44 @@
         <div class="formsection">
             <form method="post" id="signup">
                 <h1 class="header">Let's do this!</h1>
-                <label for="fname">FIRST NAME</label>
-                <input type="text"
-                        placeholder="Thor"
-                        required
-                        name="fname">
-                <label for="lname">LAST NAME</label>
-                <input type="text"
-                        placeholder="Odinson"
-                        required
-                        name="lname">
-                <label for="email">EMAIL</label>
-                <input type="email"
-                        placeholder="email@domain.com"
-                        required
-                        name="email">
-                <label for="pnum">PHONE NUMBER</label>
-                <input type="tel"
-                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
-                        placeholder="xxx-xxx-xxxx"
-                        name="pnum"
-                        id="pnum">
-                <label for="password">PASSWORD</label>
-                <input type="password"
-                        title="Must be at least 10 characters with at least one number and one capital letter"
-                        required
-                        name="password"
-                        id="password">
-                <span id="perror"></span>
-                <label for="checkpass">CONFIRM PASSWORD</label>
-                <input type="password"
-                        required
-                        name="checkpass"
-                        id="checkpass">
-                <span id="checkerror"></span>
+                <div class="names">
+                    <label for="fname">FIRST NAME</label>
+                    <input type="text"
+                            placeholder="Thor"
+                            required
+                            name="fname">
+                    <label for="lname">LAST NAME</label>
+                    <input type="text"
+                            placeholder="Odinson"
+                            required
+                            name="lname">
+                </div>
+                <div class="contact">
+                    <label for="email">EMAIL</label>
+                    <input type="email"
+                            placeholder="email@domain.com"
+                            required
+                            name="email">
+                    <label for="pnum">PHONE NUMBER<p id=telerror></p></label>
+                    <input type="tel"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
+                            placeholder="xxx-xxx-xxxx"
+                            name="pnum"
+                            id="pnum">
+                </div>
+                <div class="pass">
+                    <label for="password">PASSWORD<p id="perror"></p></label>
+                    <input type="password"
+                            title="Must be at least 10 characters with at least one number and one capital letter"
+                            required
+                            name="password"
+                            id="password">
+                    <label for="checkpass">CONFIRM PASSWORD<p id="checkerror"></p></label>
+                    <input type="password"
+                            required
+                            name="checkpass"
+                            id="checkpass">
+                </div>
             </form>
         </div>
         <div class="bottom">
@@ -67,10 +74,11 @@
 
 
 <script type="text/javascript">
-    let check = document.getElementbyId('checkpass')
+    let check = document.getElementById('checkpass')
     let password = document.getElementById('password')
     let phone = document.getElementById('pnum')
     let passerror = document.getElementById('perror')
+    let telerror = document.getElementById('telerror')
     let checkerror = document.getElementById('checkerror')
     let btn = document.querySelector("button")
 
@@ -99,6 +107,7 @@
 
         else {
             checkerror.classname = ''
+            checkerror.textContent = ''
             btn.disabled = false
         }
 
@@ -107,10 +116,10 @@
     function checkReq() {
         let test = password.value
         if (test.length < 10) {
-            pLen = test.length
             passerror.className = 'invalid'
-            passerror.textContent = 'Please enter a password with at least 10 character. You have ${pLen}'
+            passerror.textContent = `Please enter a password with at least 10 character. You have ${test.length}`
             btn.disabled = true
+            return
         }
 
         // string.search can take regex, returns -1 if not found
@@ -118,16 +127,17 @@
             passerror.textContent = 'Please include at least one number'
             passerror.className = 'invalid'
             btn.disabled = true
-
+            return
         }
 
         if (test.search(/[A-Z]/) < 0) {
             passerror.textContent = 'Please include at least one capital letter'
             passerror.className = 'invalid'
             btn.disabled = true
-        }
-        else {
+            return
+        } else {
             passerror.className = ''
+            passerror.textContent = ''
             btn.disabled = false
         }
     }
@@ -137,6 +147,17 @@
 
         if (number.length == 3 || number.length == 7) {
             phone.value += '-'
+        }
+
+        if (number.length > 12 || number.search(/[a-zA-Z]/) > -1) {
+            telerror.className = 'invalid'
+            telerror.textContent = 'Enter in 111-111-1111 format'
+            btn.disabled = true
+            return
+        } else {
+            telerror.className = ''
+            telerror.textContent = ''
+            btn.disabled = false
         }
     }
 
